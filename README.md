@@ -37,14 +37,6 @@
 *   **Google Fonts:** For typography ('Inter' and 'Tajawal').
 
 
-## 🕹️ Usage
-
-1.  **Select a Palette:** Click on one of the palette buttons at the top ("Professional Deep Blues", "Lively Teals", "Soothing Sky Blues") to apply it across all demo components.
-2.  **Toggle Theme:** Click the "Dark Mode" / "Light Mode" button to switch the overall theme.
-3.  **Simulate CMYK:** Click the "Simulate CMYK" button to apply a filter approximating print colors. Click again to revert to RGB.
-4.  **Switch Language:** Click the "Switch to Arabic" / "Switch to English" button to change the language of the UI text and observe RTL/LTR layout adjustments.
-
-
 ## 🔮 Future Enhancements
 
 *   [ ] Allow users to input their own custom palettes.
