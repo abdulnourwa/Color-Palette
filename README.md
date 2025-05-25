@@ -2,6 +2,9 @@
 
 An interactive web application to showcase and compare different color palettes for brand identity, demonstrating their application across various UI components and marketing materials. This project focuses on providing a rich visual experience for evaluating brand aesthetics.
 
+## Deployment Status
+This application is automatically deployed to GitHub Pages on every push to the main branch.
+
 ## ✨ Features
 
 *   **🎨 Interactive Palette Selection:** Choose from multiple predefined color palettes.
