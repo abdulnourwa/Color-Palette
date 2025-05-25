@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
     },
     root: '.',
     publicDir: 'assets',
-    base: process.env.NODE_ENV === 'production' ? 'https://visual-palette.nurlux.com/' : '/',
+    base: '/',
     server: {
       port: 5173,
       open: true
