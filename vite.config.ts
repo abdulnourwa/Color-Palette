@@ -18,14 +18,15 @@ export default defineConfig(({ mode }) => {
     },
     root: '.',
     publicDir: 'assets',
-    base: process.env.NODE_ENV === 'production' ? '/visual-palette/' : '/',
+    base: process.env.NODE_ENV === 'production' ? '/' : '/',
     server: {
       port: 5173,
       open: true
     },
     build: {
       outDir: 'dist',
-      sourcemap: true,
+      sourcemap: false,
+      emptyOutDir: true,
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html')
