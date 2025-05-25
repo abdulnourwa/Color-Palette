@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
     },
     root: '.',
     publicDir: 'assets',
-    base: process.env.NODE_ENV === 'production' ? '/' : '/',
+    base: process.env.NODE_ENV === 'production' ? 'https://visual-palette.nurlux.com/' : '/',
     server: {
       port: 5173,
       open: true
@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => {
       outDir: 'dist',
       sourcemap: false,
       emptyOutDir: true,
+      assetsDir: '.',
       rollupOptions: {
         input: {
           main: path.resolve(__dirname, 'index.html')
