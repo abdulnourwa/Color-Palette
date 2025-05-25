@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DişYol Insights - Advanced Brand Palette Showcase</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/assets/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg" />
+  <link rel="shortcut icon" href="/assets/icons/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="DişYol Insights" />
+  <link rel="manifest" href="/assets/icons/site.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg-primary-light: #ffffff; --bg-secondary-light: #f9fafb; --bg-accent-light: #f3f4f6;
+        --text-primary-light: #111827; --text-secondary-light: #6b7280; --border-light: #e5e7eb;
+        --shadow-light: rgba(55, 65, 81, 0.07); --shadow-lg-light: rgba(55, 65, 81, 0.1); --shadow-xl-light: rgba(55, 65, 81, 0.15);
+
+        --bg-primary-dark: #0d1117; --bg-secondary-dark: #161b22; --bg-accent-dark: #21262d;
+        --text-primary-dark: #c9d1d9; --text-secondary-dark: #8b949e; --border-dark: #30363d;
+        --shadow-dark: rgba(0, 0, 0, 0.3); --shadow-lg-dark: rgba(0, 0, 0, 0.4); --shadow-xl-dark: rgba(0, 0, 0, 0.5);
+
+        --bg-primary: var(--bg-primary-light); --bg-secondary: var(--bg-secondary-light); --bg-accent: var(--bg-accent-light);
+        --text-primary: var(--text-primary-light); --text-secondary: var(--text-secondary-light); --border: var(--border-light);
+        --shadow: var(--shadow-light); --shadow-lg: var(--shadow-lg-light); --shadow-xl: var(--shadow-xl-light);
+
+        --palette-p: #007bff; --palette-s: #6c757d; --palette-a: #17a2b8;
+        --palette-l: #f8f9fa; --palette-c: #343a40;
+        --palette-tp: #ffffff; --palette-ts: #ffffff; --palette-ta: #ffffff;
+        --palette-tl: #212529; --palette-tc: #ffffff;
+        --header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        --border-radius-sm: 8px; --border-radius-md: 12px; --border-radius-lg: 20px;
+        --transition-speed: 0.25s;
+        --transition-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    [data-theme="dark"] {
+        --bg-primary: var(--bg-primary-dark); --bg-secondary: var(--bg-secondary-dark); --bg-accent: var(--bg-accent-dark);
+        --text-primary: var(--text-primary-dark); --text-secondary: var(--text-secondary-dark); --border: var(--border-dark);
+        --shadow: var(--shadow-dark); --shadow-lg: var(--shadow-lg-dark); --shadow-xl: var(--shadow-xl-dark);
+    }
+
+    html { scroll-behavior: smooth; font-size: 100%; /* Base for rem units */ }
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
+        line-height: 1.65; /* Slightly adjusted for better readability */
+        transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+        padding-bottom: 80px;
+        font-size: 1rem; /* Default font size */
+    }
+    body.lang-ar { font-family: 'Tajawal', 'Inter', sans-serif; direction: rtl; }
+    body.cmyk-simulate .demo-area > div { filter: saturate(0.85) brightness(0.95) contrast(0.98); transition: filter var(--transition-speed) ease; }
+    
+    .page-title-header h1 .fa-tooth { margin-inline-end: 10px; opacity: 0.8; }
+    
+    .toggle-btn .fa-solid { font-size: 1em; opacity: 0.8;}
+    .toggle-btn.active .fa-solid { opacity: 1;}
+    .controls .toggle-btn { flex-grow: 1; }
+    .controls .md\:flex .toggle-btn { flex-grow: 0; }
+    .controls .fa-solid { font-size: 1.1em; }
+     /* Chevron in palette toggle, handle LTR/RTR with margin-inline-start */
+    .controls button > span + .fa-solid { margin-inline-start: auto; }
+
+    /* Clickable feedback */
+    .clickable-feedback:active {
+      transform: scale(0.97);
+      transition: transform 0.1s var(--transition-bounce);
+    }
+    
+    .use-case-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* For title and spotlight button */
+    }
+    .use-case-header .title-group {
+        display: flex;
+        align-items: center;
+        gap: 12px; /* Same as existing gap */
+    }
+    .use-case-header .title-group .fa-solid { font-size: 1.1em; opacity: 0.7; color: var(--palette-p); margin-inline-end: 0;} /* Original icon */
+    [data-theme="dark"] .use-case-header .title-group .fa-solid { color: var(--palette-a); }
+    .spotlight-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--border-radius-sm);
+      transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    }
+    .spotlight-btn:hover {
+      background-color: var(--bg-accent);
+      color: var(--palette-a);
+    }
+    .spotlight-btn .fa-solid { font-size: 1em; }
+
+
+    .nav-bar .logo { font-weight: 700; font-size: 1.25rem; display: flex; align-items: center; gap: 8px;}
+    .nav-bar .logo .fa-tooth { margin-inline-end: 8px; }
+    
+    .cta-button .fa-solid { margin-inline-end: 8px; }
+
+    .webapp-action-btn .fa-plus { margin-inline-end: 6px;}
+    .webapp-info-card { border-inline-start: 4px solid var(--palette-s); } /* Logical property */
+    [data-theme="dark"] .webapp-info-card { border-inline-start-color: var(--palette-a); }
+    .webapp-info-card .value .fa-solid { margin-inline-end: 8px; }
+    .settings-item-mock .label .fa-solid { margin-inline-end: 10px; }
+    .settings-item-mock .fa-chevron-right { transform: scaleX(var(--direction-scale, 1)); } /* Use CSS var for direction */
+    html[dir="rtl"] .settings-item-mock .fa-chevron-right { --direction-scale: -1; }
+
+
+    .app-card { border-inline-start: 4px solid var(--palette-s); gap:12px; text-align: start;} /* Logical property */
+    .app-card .fa-solid { margin-inline-end:12px;}
+    [data-theme="dark"] .app-card { border-inline-start-color: var(--palette-a); }
+    
+    .card-logo .fa-tooth { margin-inline-end:8px;}
+    .card-info p .fa-solid { margin-inline-end:6px;}
+
+    .social-header .social-icon-placeholder { margin-inline-end:10px;}
+    .social-link .fa-arrow-right { transform: scaleX(var(--direction-scale, 1)); margin-inline-start:4px;}
+    html[dir="rtl"] .social-link .fa-arrow-right { --direction-scale: -1; }
+
+
+    .package-contents-list li .fa-circle-check { margin-inline-end:8px;}
+        
+    .toggle-btn:focus-visible, .theme-toggle:focus-visible, .cmyk-toggle:focus-visible,
+    .lang-toggle:focus-visible, .cta-button:focus-visible,
+    .webapp-action-btn:focus-visible, .settings-item-mock:focus-visible, 
+    .header-toggle:focus-visible, .spotlight-btn:focus-visible,
+    .spotlight-modal-close-btn:focus-visible {
+        outline: 3px solid var(--palette-a);
+        outline-offset: 3px;
+    }
+
+    .page-title-header { padding: 70px 20px 50px; text-align: center; }
+    .page-title-header h1 {
+        font-size: clamp(2.25rem, 6vw, 3.5rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 1rem;
+        background-image: var(--header-gradient);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        transition: background-image var(--transition-speed) ease;
+    }
+    .page-title-header .byline { font-size: 1.125rem; color: var(--text-secondary); font-style: italic; margin-bottom: 1.75rem; }
+    .page-title-header p:not(.byline) { color: var(--text-secondary); font-size: 1.25rem; max-width: 750px; margin: 0 auto 1.75rem auto; line-height: 1.6; }
+
+    /* Ensure text on swatches is visible by default */
+    .color-swatch .color-name, .color-swatch .color-code {
+       background: rgba(0,0,0,0.4); /* Darker default overlay */
+       color: #ffffff; /* Default white text */
+    }
+    .color-swatch.light-text .color-name, .color-swatch.light-text .color-code {
+        background: rgba(255,255,255,0.75) !important; /* Lighter overlay for light swatches */
+        color: #1f2937 !important; /* Dark text for light swatches */
+    }
+
+
+    .website-hero h1 { color: var(--palette-p); font-size: clamp(1.75rem, 5vw, 2.375rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+    [data-theme="dark"] .website-hero h1 { color: var(--palette-l); } /* Palette L for dark theme hero title */
+    
+    /* Shipping Box Flaps - moved to JS for component-specific styling if complex, or keep simple version here */
+    /* Basic flap styles for ShippingBoxDemo component if JS solution for ::before/::after is not used */
+     .shipping-box-flaps .flap { position: absolute; }
+     .shipping-box-flaps .flap.top { width: 90%; height: 30px; top: -15px; left: 5%; border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0; transform: skewX(-5deg); }
+     html[dir="rtl"] .shipping-box-flaps .flap.top { transform: skewX(5deg); }
+     .shipping-box-flaps .flap.side { width: 30px; height: 80%; top: 10%; left: -15px; border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm); transform: skewY(-5deg); }
+     html[dir="rtl"] .shipping-box-flaps .flap.side { left: auto; right: -15px; transform: skewY(5deg); border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0; }
+
+
+    .perspective-\[1000px\] { perspective: 1000px; }
+    .preserve-3d { transform-style: preserve-3d; }
+    .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .rotate-y-180 { transform: rotateY(180deg); }
+
+    /* CMYK Indicator Badge */
+    .cmyk-indicator-badge {
+        position: fixed;
+        bottom: 20px;
+        right: 20px; /* Adjust if it clashes with BackToTop button */
+        html[dir="rtl"] & {
+            right: auto;
+            left: 20px;
+        }
+        background-color: var(--palette-a);
+        color: var(--palette-ta);
+        padding: 6px 10px;
+        border-radius: var(--border-radius-sm);
+        font-size: 0.75rem;
+        font-weight: 600;
+        box-shadow: 0 2px 8px var(--shadow);
+        z-index: 1000; /* Below BackToTop button if it's 1001 */
+        opacity: 0;
+        transform: translateY(10px);
+        animation: cmykBadgeFadeIn 0.3s ease-out forwards;
+    }
+    @keyframes cmykBadgeFadeIn {
+        to { opacity: 1; transform: translateY(0); }
+    }
+    html[dir="rtl"] .cmyk-indicator-badge {
+        right: auto;
+        left: 20px;
+    }
+    /* Adjust BackToTopButton if CMYK badge is also bottom-right */
+    .back-to-top-button.cmyk-active {
+        bottom: 65px; /* Example: give space for CMYK badge */
+    }
+
+
+    /* Spotlight Modal Styles */
+    .spotlight-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        padding: 20px;
+        opacity: 0;
+        animation: modalOverlayFadeIn 0.3s ease-out forwards;
+    }
+    @keyframes modalOverlayFadeIn {
+        to { opacity: 1; }
+    }
+
+    .spotlight-modal-content {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        padding: 0; /* Padding will be on header/body */
+        border-radius: var(--border-radius-lg);
+        box-shadow: 0 10px 30px var(--shadow-xl);
+        width: 100%;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* Important for managing scroll within */
+        transform: scale(0.95);
+        animation: modalContentScaleUp 0.3s var(--transition-bounce) forwards;
+    }
+     @media (min-width: 768px) {
+      .spotlight-modal-content {
+        max-width: 80vw;
+      }
+    }
+    @media (min-width: 1024px) {
+      .spotlight-modal-content {
+        max-width: 70vw;
+      }
+    }
+
+    @keyframes modalContentScaleUp {
+        to { transform: scale(1); }
+    }
+
+    .spotlight-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        border-bottom: 1px solid var(--border);
+        background-color: var(--bg-accent);
+    }
+    .spotlight-modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    .spotlight-modal-close-btn {
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        cursor: pointer;
+        padding: 4px;
+        line-height: 1;
+        border-radius: var(--border-radius-sm);
+    }
+    .spotlight-modal-close-btn:hover {
+        color: var(--text-primary);
+        background-color: var(--border);
+    }
+    .spotlight-modal-body {
+        padding: 24px;
+        overflow-y: auto; /* Enable scrolling for content */
+        flex-grow: 1;
+        display: flex; /* To center the demo content if it's smaller */
+        justify-content: center; /* Center horizontally */
+        align-items: flex-start; /* Align content to the top */
+    }
+    /* Ensure the demo component inside the modal can take full width if needed */
+    .spotlight-modal-body > div {
+      width: 100%;
+      max-width: 100%; /* Override any max-width set on the demo component itself if needed */
+    }
+
+    /* Controls responsiveness: horizontal scroll for palette buttons on mobile */
+    .palette-selection-scrollable {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden; /* Hide vertical scrollbar if any */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: thin; /* For Firefox */
+        scrollbar-color: var(--palette-a) var(--bg-accent); /* For Firefox */
+    }
+    .palette-selection-scrollable::-webkit-scrollbar {
+        height: 6px; /* Height of horizontal scrollbar */
+    }
+    .palette-selection-scrollable::-webkit-scrollbar-track {
+        background: var(--bg-accent);
+        border-radius: 3px;
+    }
+    .palette-selection-scrollable::-webkit-scrollbar-thumb {
+        background-color: var(--palette-a);
+        border-radius: 3px;
+    }
+    .palette-selection-scrollable > button {
+        flex-shrink: 0; /* Prevent buttons from shrinking */
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>
