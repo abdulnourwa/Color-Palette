@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
     },
     root: '.',
     publicDir: 'assets',
-    base: '/',
+    base: '/visual-palette/',
     server: {
       port: 5173,
       open: true
