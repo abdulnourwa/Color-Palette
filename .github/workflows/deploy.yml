@@ -6,39 +6,38 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read          # checkout
-  pages: write            # deploy
-  id-token: write         # deploy
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  contents: read      # checkout
+  pages: write        # deploy
+  id-token: write     # deploy
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: npm
+          node-version: 18          # or 20 – whatever you prefer
+          cache: npm                # built-in cache uses v4 internally
 
       - run: npm ci
       - run: npm run build
 
-      # Upload the dist/ folder as an artifact for the deploy job
-      - uses: actions/upload-pages-artifact@v2
+      # NEW → v3 uses the v4 artifact library under the hood
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: dist                # folder Vite outputs
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy.outputs.page_url }}
+
     steps:
-      - id: deployment
+      # NEW → v4 deploy action (no deprecated libs inside)
+      - id: deploy
         uses: actions/deploy-pages@v4
