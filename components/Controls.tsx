@@ -62,8 +62,13 @@ const Controls: React.FC = () => {
 
         <div 
           id="palette-selection-group"
-          className={`control-group md:flex bg-[var(--bg-accent)] rounded-[var(--border-radius-md)] p-[6px] justify-center w-full md:w-auto
-                      ${palettesExpanded ? 'flex palette-selection-scrollable' : 'hidden md:flex flex-wrap'}`}
+          className={`control-group bg-[var(--bg-accent)] rounded-[var(--border-radius-md)] p-[6px] w-full md:w-auto overflow-x-auto
+                      ${palettesExpanded ? 'flex' : 'hidden md:flex md:flex-wrap'}
+                      scrollbar-thin scrollbar-thumb-[var(--palette-a)] scrollbar-track-[var(--bg-primary)]`}
+          style={{
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'var(--palette-a) var(--bg-primary)'
+          }}
         >
           {Object.keys(palettesData).map((paletteKey) => (
             <button
@@ -83,7 +88,7 @@ const Controls: React.FC = () => {
           ))}
         </div>
         
-        <div className="flex flex-wrap justify-center items-stretch gap-2 md:gap-3 w-full"> {/* items-stretch for equal height buttons if they wrap */}
+        <div className="flex flex-wrap justify-center items-stretch gap-2 md:gap-3 w-full mt-2"> {/* items-stretch for equal height buttons if they wrap */}
           <button
               className={`${baseButtonClasses} theme-toggle bg-[var(--bg-primary)] border border-[var(--border)] text-[var(--text-primary)] hover:bg-[var(--bg-accent)] hover:border-[var(--palette-a)] hover:text-[var(--palette-a)]`}
               onClick={toggleTheme}
